@@ -1,0 +1,15 @@
+services:
+  label_studio:
+    build:
+      context: label_studio
+      dockerfile: Dockerfile
+    container_name: label_studio
+    hostname: labelstudio
+    ports:
+      - 8080:8080
+    restart: always
+    volumes:
+      - label_studio_data:/label-studio/data
+
+volumes:
+  label_studio_data:
