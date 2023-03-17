@@ -1,4 +1,12 @@
 services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    volumes:
+      - redis_data:/data
+    expose:
+      - 6379
   label_studio:
     build:
       context: label_studio
@@ -13,3 +21,4 @@ services:
 
 volumes:
   label_studio_data:
+  redis_data:
