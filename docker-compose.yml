@@ -7,6 +7,8 @@ services:
       - redis_data:/data
     expose:
       - 6379
+    ports:
+      - 6379:6379
     restart: always
   label_studio:
     build:
@@ -14,6 +16,8 @@ services:
       dockerfile: Dockerfile
     container_name: label_studio
     hostname: labelstudio
+    expose:
+      - 8080
     ports:
       - 8080:8080
     restart: always
@@ -34,11 +38,11 @@ services:
       - REDIS_PORT=6379
       - LABEL_STUDIO_USE_REDIS=true
       - LABEL_STUDIO_SERVER=http://cacplcemudev:8080
+    expose:
+      - 9090
     ports:
       - 9090:9090
     depends_on:
-      - redis
-    links:
       - redis
     restart: always
     volumes:
