@@ -28,10 +28,12 @@ services:
     environment:
       - MODEL_DIR=/models
       - DATASET_DIR=/datasets
+      - IMAGE_DIR=/images
       - RQ_QUEUE_NAME=default
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - LABEL_STUDIO_USE_REDIS=true
+      - LABEL_STUDIO_SERVER=http://cacplcemudev:8080
     ports:
       - 9090:9090
     depends_on:
@@ -42,8 +44,10 @@ services:
     volumes:
       - model_engine_models:/models
       - model_engine_datasets:/datasets
+      - model_engine_images:/images
 volumes:
   label_studio_data:
   redis_data:
-  model_engine_data:
+  model_engine_models:
   model_engine_datasets:
+  model_engine_images:
