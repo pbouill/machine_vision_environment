@@ -25,12 +25,25 @@ services:
       dockerfile: Dockerfile
     container_name: model_engine
     hostname: model_engine
+    environment:
+      - MODEL_DIR=/models
+      - DATASET_DIR=/datasets
+      - RQ_QUEUE_NAME=default
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - LABEL_STUDIO_USE_REDIS=true
     ports:
       - 9090:9090
+    depends_on:
+      - redis
+    links:
+      - redis
     restart: always
     volumes:
-      - model_engine_data:/models
+      - model_engine_models:/models
+      - model_engine_datasets:/datasets
 volumes:
   label_studio_data:
   redis_data:
   model_engine_data:
+  model_engine_datasets:
