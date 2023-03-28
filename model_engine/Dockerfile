@@ -1,8 +1,14 @@
 FROM ubuntu:latest
 RUN apt update
 RUN apt upgrade -y
+
+# Set some environment variables
 ENV DEBIAN_FRONTEND="noninteractive"
-RUN apt install python3 python3-pip git python3-opencv -y
+ENV PORT=9090
+ENV PYTHONUNBUFFERED=True
+
+# Get some dependencies
+RUN apt install python3 python3-pip git python3-opencv python-is-python3 -y
 
 WORKDIR /app
 RUN pip install --upgrade pip
@@ -15,6 +21,8 @@ RUN pip install -r requirements.txt
 ARG REPO_VER
 RUN git pull
 
-RUN label-studio-ml init ml_backend --script ./main.py
 RUN mkdir -p /models
-ENTRYPOINT label-studio-ml start ml_backend --model-dir /models
+RUN mkdir -p /datasets
+
+ENTRYPOINT exec gunicorn --preload --bind :$PORT --workers 1 --threads 8 --timeout 0 _wsgi:app
+# ENTRYPOINT label-studio-ml start ml_backend --model-dir /models
