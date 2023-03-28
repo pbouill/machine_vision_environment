@@ -8,7 +8,7 @@ ENV PORT=9090
 ENV PYTHONUNBUFFERED=True
 
 # Get some dependencies
-RUN apt install python3 python3-pip git python3-opencv python-is-python3 -y
+RUN apt install python3 python3-pip git python3-opencv python-is-python3 gunicorn -y
 
 WORKDIR /app
 RUN pip install --upgrade pip
@@ -24,5 +24,6 @@ RUN git pull
 RUN mkdir -p /models
 RUN mkdir -p /datasets
 
+EXPOSE 9090
+
 ENTRYPOINT exec gunicorn --preload --bind :$PORT --workers 1 --threads 8 --timeout 0 _wsgi:app
-# ENTRYPOINT label-studio-ml start ml_backend --model-dir /models
