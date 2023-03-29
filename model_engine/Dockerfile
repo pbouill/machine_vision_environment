@@ -26,4 +26,4 @@ RUN mkdir -p /datasets
 
 EXPOSE 9090
 
-ENTRYPOINT exec gunicorn --preload --bind :$PORT --workers 1 --threads 8 --timeout 0 _wsgi:app
+ENTRYPOINT gunicorn --preload --bind :$PORT --workers 1 --threads 8 _wsgi:app
