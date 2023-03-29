@@ -37,9 +37,13 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - LABEL_STUDIO_USE_REDIS=true
-      - LABEL_STUDIO_SERVER=http://cacplcemudev:8080
+      - LABEL_STUDIO_SERVER=http://labelstudio:8080
+    expose:
+      - 9090
     ports:
       - 8888:9090
+    links:
+      - redis
     depends_on:
       - redis
     restart: always
