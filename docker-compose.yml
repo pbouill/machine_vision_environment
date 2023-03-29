@@ -39,7 +39,7 @@ services:
       - LABEL_STUDIO_USE_REDIS=true
       - LABEL_STUDIO_SERVER=http://cacplcemudev:8080
     ports:
-      - 9090:9090
+      - 8888:9090
     depends_on:
       - redis
     restart: always
