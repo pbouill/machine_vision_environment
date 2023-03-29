@@ -51,6 +51,7 @@ services:
       - model_engine_models:/models
       - model_engine_datasets:/datasets
       - model_engine_images:/images
+      - label_studio_data:/label_studio_data:ro
 volumes:
   label_studio_data:
   redis_data:
