@@ -1,15 +1,15 @@
 services:
-  redis:
-    image: redis
-    container_name: redis
-    hostname: redis
-    volumes:
-      - redis_data:/data
-    expose:
-      - 6379
-    ports:
-      - 6379:6379
-    restart: always
+  # redis:
+  #   image: redis
+  #   container_name: redis
+  #   hostname: redis
+  #   volumes:
+  #     - redis_data:/data
+  #   expose:
+  #     - 6379
+  #   ports:
+  #     - 6379:6379
+  #   restart: always
   label_studio:
     build:
       context: label_studio
@@ -33,19 +33,20 @@ services:
       - MODEL_DIR=/models
       - DATASET_DIR=/datasets
       - IMAGE_DIR=/images
-      - RQ_QUEUE_NAME=default
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - LABEL_STUDIO_USE_REDIS=true
+      - LABEL_STUDIO_DATA_DIR=/label_studio_data
+      # - RQ_QUEUE_NAME=default
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+      # - LABEL_STUDIO_USE_REDIS=true
       - LABEL_STUDIO_SERVER=http://labelstudio:8080
     expose:
       - 9090
     ports:
       - 8888:9090
-    links:
-      - redis
-    depends_on:
-      - redis
+    # links:
+    #   - redis
+    # depends_on:
+    #   - redis
     restart: always
     volumes:
       - model_engine_models:/models
