@@ -24,12 +24,13 @@ services:
     volumes:
       - label_studio_data:/label-studio/data
   model_engine:
-    build:
-      context: model_engine
-      dockerfile: Dockerfile
-      args:
-        - REPO_VER
-        - REQ_FILE_VER
+    image: pbouill/model_engine:latest
+    # build:
+    #   context: model_engine
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - REPO_VER
+    #     - REQ_FILE_VER
     container_name: model_engine
     hostname: model_engine
     environment:
