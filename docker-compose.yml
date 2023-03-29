@@ -27,18 +27,21 @@ services:
     build:
       context: model_engine
       dockerfile: Dockerfile
+      args:
+        - REPO_VER
+        - REQ_FILE_VER
     container_name: model_engine
     hostname: model_engine
     environment:
       - MODEL_DIR=/models
       - DATASET_DIR=/datasets
       - IMAGE_DIR=/images
-      - LABEL_STUDIO_DATA_DIR=/label_studio_data
+      - LABEL_STUDIO_MEDIA_DIR=/label_studio_data/media
       # - RQ_QUEUE_NAME=default
       # - REDIS_HOST=redis
       # - REDIS_PORT=6379
       # - LABEL_STUDIO_USE_REDIS=true
-      - LABEL_STUDIO_SERVER=http://labelstudio:8080
+      # - LABEL_STUDIO_SERVER=http://labelstudio:8080
     expose:
       - 9090
     ports:
